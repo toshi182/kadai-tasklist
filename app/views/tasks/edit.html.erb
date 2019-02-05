@@ -1,8 +1,4 @@
 <h1>id: <%= @tasks.id %> のタスク編集ページ</h1>
 
-<%= render 'form', task: @tasks %>
-
-<% end %>
-
-<%= link_to '一覧に戻る', task_path %>
-<%= link_to 'このタスクを編集する', edit_task_path(@tasks) %>
+<%= link_to 'このタスクを編集する', edit_task_path(@tasks), class: 'btn btn-default' %>
+<%= link_to 'このタスクを削除する', @tasks, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
