@@ -1,4 +1,7 @@
 <h1>id: <%= @tasks.id %> のタスク詳細ページ</h1>
+<div class="row">
+  <div class="col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12"></div>
+
 
 <table class="table table-bordered">
   <tr>
@@ -15,5 +18,9 @@
   </tr>
 </table>
 
+
 <%= link_to 'このタスクを編集する', edit_task_path(@tasks), class: 'btn btn-default' %>
 <%= link_to 'このタスクを削除する', @tasks, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+
+  </div>
+</div>
