@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user = User.new(user_params)
   end
 
   def create
-    @user = User.new
+    @user = User.new(user_params)
     
     if @user.save
       flash[:success] = 'ユーザーを登録しました'
