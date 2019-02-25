@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     else
       flash.now[:danger] = 'ユーザーの登録に失敗しました'
       render :new
+    end
   end
   
   private
@@ -30,5 +31,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
    end
    
-  end
 end
