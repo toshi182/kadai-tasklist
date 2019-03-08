@@ -4,6 +4,7 @@ class TasksController < ApplicationController
     # 下記は全てのタスクを表示する
     # @tasks = Task.all
     # 現在ログインしているユーザーに紐づくデータのみを出したい
+    # @←アットマークをつけることによって、対応するビューにその変数を送ることができる。これをインスタンス変数という。
     @tasks = current_user.tasks
   end
   
