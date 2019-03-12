@@ -9,7 +9,13 @@ class TasksController < ApplicationController
   end
   
   def show
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
+    # current_userは現在ログインしているUserクラスのインスタンス
+    # 下記をedit,update,destroyにも記載する必要がある。
+    # あちこちに同じようなことを書きたくないので、カリキュラムではcorrect_userというメソッドを作って簡略化している。
+    if @task.user != current_user
+      redirect_to root_url
+    end
   end
   
   def new
@@ -36,10 +42,16 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    if @task.user != current_user
+      redirect_to root_url
+    end
   end
 
   def update
     @task = Task.find(params[:id])
+    if @task.user != current_user
+      redirect_to root_url
+    end
 
     if @task.update(task_params)
       flash[:success] = 'Task は正常に更新されました'
@@ -52,8 +64,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @tasks = Task.find(params[:id])
-    @tasks.destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    if @task.user !=current_user
+      redirect_to root_url
+    end
 
     flash[:success] = 'Task は正常に削除されました'
     redirect_to tasks_url
@@ -61,7 +76,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def task_params
