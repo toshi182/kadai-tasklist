@@ -6,6 +6,9 @@ class TasksController < ApplicationController
     # 現在ログインしているユーザーに紐づくデータのみを出したい
     # @←アットマークをつけることによって、対応するビューにその変数を送ることができる。これをインスタンス変数という。
     @tasks = current_user.tasks
+    if @task.user != current_user
+      redirect_to root_url
+    end
   end
   
   def show
@@ -84,5 +87,8 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:content,:status)
+    if @task.user != current_user
+      redirect_to root_url
+    end
   end
 end
