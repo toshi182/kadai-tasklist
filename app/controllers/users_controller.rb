@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show]
   def index
-    if @user != current_user
-      redirect_to current_user
-    end
   end
 
   def show
@@ -39,5 +36,6 @@ class UsersController < ApplicationController
       redirect_to root_url
     end
    end
+   
    
 end

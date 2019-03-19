@@ -1,24 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_user_logged_in
   def index
     # 下記は全てのタスクを表示する
     # @tasks = Task.all
     # 現在ログインしているユーザーに紐づくデータのみを出したい
     # @←アットマークをつけることによって、対応するビューにその変数を送ることができる。これをインスタンス変数という。
     @tasks = current_user.tasks
-    if @task.user != current_user
-      redirect_to root_url
-    end
   end
   
   def show
-    @task = Task.find(params[:id])
     # current_userは現在ログインしているUserクラスのインスタンス
     # 下記をedit,update,destroyにも記載する必要がある。
     # あちこちに同じようなことを書きたくないので、カリキュラムではcorrect_userというメソッドを作って簡略化している。
-    if @task.user != current_user
-      redirect_to root_url
-    end
   end
   
   def new
@@ -80,15 +74,15 @@ class TasksController < ApplicationController
   private
   def set_task
     @task = Task.find_by(id: params[:id])
-    if @task.user != current_user
+    if @task.blank? || @task.user != current_user
       redirect_to root_url
     end
   end
 
   def task_params
     params.require(:task).permit(:content,:status)
-    if @task.user != current_user
-      redirect_to root_url
-    end
+    # if @task.user != current_user
+    #   redirect_to root_url
+    # end
   end
 end
